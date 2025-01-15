@@ -1,6 +1,206 @@
-# Rev
+<!--
+ * @Author: Conghao Wong
+ * @Date: 2025-01-15 15:31:57
+ * @LastEditors: Conghao Wong
+ * @LastEditTime: 2025-01-15 16:33:25
+ * @Github: https://cocoon2wong.github.io
+ * Copyright 2025 Conghao Wong, All Rights Reserved.
+-->
+
+# ⛈ Rev
 
 This is the official codes of our untitled paper *Reverberation*.
+The full paper will be made avaliable soon.
+Our model weights are available at [here](https://github.com/cocoon2wong/Project-Monandaeg/tree/Rev).
+
+## Getting Started
+
+You can clone [this repository](https://github.com/cocoon2wong/Rev) by the following command:
+
+```bash
+git clone https://github.com/cocoon2wong/Rev.git
+```
+
+Then, run the following command to initialize all submodules:
+
+```bash
+git submodule update --init --recursive
+```
+
+## Requirements
+
+The codes are developed with Python 3.10.
+Additional packages used are included in the `requirements.txt` file.
+
+{: .box-warning}
+**Warning:** We recommend installing all required Python packages in a virtual environment (like the `conda` environment).
+Otherwise, there *COULD* be other problems due to the package version conflicts.
+
+Run the following command to install the required packages in your Python environment:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Preparing Datasets
+
+### ETH-UCY, SDD, NBA, nuScenes
+
+{: .box-warning}
+**Warning:** If you want to validate `Rev` models on these datasets, make sure you are getting this repository via `git clone` and that all *git submodules* have been properly initialized via `git submodule update --init --recursive`.
+
+You can run the following commands to prepare dataset files that have been validated in our paper:
+
+1. Run Python the script inner the `dataset_original` folder:
+
+    ```bash
+    cd dataset_original
+    ```
+
+    - For `ETH-UCY` and `SDD`, run
+
+        ```bash
+        python main_ethucysdd.py
+        ```
+
+    - For `NBA`, please download their original dataset files, put them into the given path listed within `dataset_original/main_nba.py`, then run
+
+        ```bash
+        python main_nba.py
+        ```
+
+    - For `nuScenes`, please download their dataset files, put them into the given path listed within `dataset_original/main_nuscenes.py`, then run
+
+        ```bash
+        python main_nuscenes.py
+        ```
+
+2. Back to the repo folder and create soft links:
+
+    ```bash
+    cd ..
+    ln -s dataset_original/dataset_processed ./
+    ln -s dataset_original/dataset_configs ./
+    ```
+
+{: .box-note}
+**NOTE**: You can also download our processed dataset files manually from [here](https://github.com/cocoon2wong/Project-Luna/releases), and put them into `dataset_processed` and `dataset_configs` folders manually.
+
+Click the following buttons to learn how we process these dataset files and the detailed dataset settings.
+
+<div style="text-align: center;">
+    <a class="btn btn-colorful btn-lg" href="https://cocoon2wong.github.io/Project-Luna/howToUse/">💡 Dataset Guidelines</a>
+    <a class="btn btn-colorful btn-lg" href="https://cocoon2wong.github.io/Project-Luna/notes/">💡 Datasets and Splits Information</a>
+</div>
+
+### Training on Your New Datasets
+
+Before training `Rev` models on your own dataset, you should add your dataset information.
+See [this page](https://cocoon2wong.github.io/Project-Luna/) for more details.
+
+## Model Weights
+
+We have provided our pre-trained model weights to help you quickly evaluate `Rev` models' performance.
+
+Click the following buttons to download our model weights.
+We recommend that you download the weights and place them in the `weights` folder.
+
+<div style="text-align: center;">
+    <a class="btn btn-colorful btn-lg" href="https://github.com/cocoon2wong/Project-Monandaeg/tree/Rev">⬇️ Download Weights</a>
+</div>
+
+You can start evaluating these weights by
+
+```bash
+python main.py --load SOME_MODEL_WEIGHTS
+```
+
+Here, `SOME_MODEL_WEIGHTS` is the path of the weights folder, for example, `./weights/rezara1`.
+
+## Training
+
+You can start training a `Rev` model via the following command:
+
+```bash
+python main.py --model rev --split DATASET_SPLIT
+```
+
+Here, `DATASET_SPLIT` is the identifier (i.e., the name of dataset's split files in `dataset_configs`, for example `eth` is the identifier of the split list in `dataset_configs/ETH-UCY/eth.plist`) of the dataset or splits used for training.
+It accepts:
+
+- ETH-UCY: {`eth`, `hotel`, `univ13`, `zara1`, `zara2`};
+- SDD: `sdd`;
+- NBA: `nba50k`;
+- nuScenes: `nuScenes_ov_v1.0`.
+
+For example, you can start training the `Rev` model on the `zara1` split by
+
+```bash
+python main.py --model rev --split zara1
+```
+
+Also, other args may need to be specified, like the learning rate `--lr`, batch size `--batch_size`, etc.
+See detailed args in the `Args Used` Section.
+
+## Reproducing Our Results
+
+The simplest way to reproduce our results is to copy all training args we used in the provided weights.
+For example, you can start a training of `Rev` on `zara1` using the same args as we did by:
+
+```bash
+python main.py --model rev --restore_args ${PATH_TO_YOUR_DOWNLOADED_WEIGHTS}/revzara1
+```
+
+Here, `${PATH_TO_YOUR_DOWNLOADED_WEIGHTS}` is your path to save our pretrained weights, which usually could be named as `Project-Monandaeg-Rev` after downloading.
+
+You can open a `Tensorboard` to see how losses and metrics change during training, by:
+
+```bash
+tensorboard --logdir ./logs
+```
+
+## Visualization & Playground
+
+We have build a simple user interface to validate the qualitative trajectory prediction performance of our proposed `Rev` models.
+You can use it to visualize model predictions and learn how the proposed `Rev` works to handle social interactions in an interactive way by adding any manual neighbors at any positions in the scene.
+
+{: .box-warning}
+**WARNING**: 
+Visualizations may need dataset videos. For copyright reasons and size limitations, we do not provide them in our repo. Instead, a static image will be displayed if you have no videos put into the corresponding path.
+
+### Visualization Requirements
+
+This playground interface is implemented with `PyQt6`.
+Install this package in your python environment to start:
+
+```bash
+pip install pyqt6
+```
+
+### Open a Playground
+
+Run the following command to open a playground:
+
+```bash
+python playground/main.py
+```
+
+![Playground](figs/playground.png)
+
+### Load Models and Datasets
+
+You can load a supported `Rev` model or one of its variations by clicking the `Load Model` button.
+By clicking the `Run` button, you can see how the loaded model performs on the given sample.
+You can also load different datasets (video clips) by clicking the `More Settings ...` button.
+
+### Add Manual Neighbors
+
+You can also directly click the visualized figure to add a new neighbor to the scene.
+Through this neighbor that wasn't supposed to exist in the prediction scene, you can verify how models handle *social interactions* qualitatively.
+
+## Contact us
+
+*TBA*
 
 <!-- DO NOT CHANGE THIS LINE -->
 
