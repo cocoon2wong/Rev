@@ -16,3 +16,10 @@ run.sh
 *.backup
 *.downloaded
 .vscode
+
+Project-Zero-Divided
+Project-Zero
+_data
+_includes
+_layouts
+assets
