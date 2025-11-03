@@ -2,7 +2,7 @@
 @Author: Conghao Wong
 @Date: 2021-08-05 15:26:57
 @LastEditors: Conghao Wong
-@LastEditTime: 2024-12-27 10:44:33
+@LastEditTime: 2025-04-14 17:44:04
 @Description: file content
 @Github: https://github.com/cocoon2wong
 @Copyright 2022 Conghao Wong, All Rights Reserved.
@@ -47,5 +47,6 @@ About the `argtype`:
 if __name__ == '__main__':
     qpid.register_args(PlaygroundArgs, 'Playground Args')
     qpid.register_args(VisArgs, 'Visualization Args')
-    qpid.help.update_readme([SECTION_HEAD] + qpid.print_help_info(),
+    qpid.help.update_readme([SECTION_HEAD] + 
+                            qpid.get_all_args_docs(html=True, print_docs=False),
                             TARGET_FILE)

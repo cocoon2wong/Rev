@@ -115,10 +115,12 @@ class ResonanceLayer(torch.nn.Module):
         # Mask neighbors
         if not self.lite:
             # Compute resonance features on all steps and partitions
-            nei_mask = get_mask(torch.sum(p_nei, dim=-1), torch.int32)
+            nei_mask = get_mask(torch.sum(torch.abs(p_nei),
+                                          dim=-1), torch.int32)
         else:
             # Compute resonance features during the whole period
-            nei_mask = get_mask(torch.sum(x_nei_2d, dim=[-1, -2]), torch.int32)
+            nei_mask = get_mask(torch.sum(torch.abs(x_nei_2d), 
+                                          dim=[-1, -2]), torch.int32)
 
         # Remove egos from neighbors (the self-neighbors)
         non_self_mask = (f_distance > 0.005).to(torch.int32)

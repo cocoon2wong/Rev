@@ -2,7 +2,7 @@
 @Author: Conghao Wong
 @Date: 2024-12-11 19:19:54
 @LastEditors: Conghao Wong
-@LastEditTime: 2025-01-15 15:25:02
+@LastEditTime: 2025-03-17 10:52:27
 @Github: https://cocoon2wong.github.io
 @Copyright 2024 Conghao Wong, All Rights Reserved.
 """
@@ -129,3 +129,14 @@ class KernelLayer(torch.nn.Module):
 
     def forward(self, f: torch.Tensor) -> torch.Tensor:
         return self.l3(self.l2(self.l1(f)))
+
+
+def compute_inverse_kernel(kernel: torch.Tensor):
+    """
+    Compute the inverse reverberation transform kernel corresponding to the
+    given transform kernel $R$ or $G$.
+    Shape of the input kernel should be `(batch, steps, out_steps)`, and the
+    computed inverse kernel has the shape `(batch, out_steps, steps)`.
+    """
+    kernel_T = torch.transpose(kernel, -1, -2)
+    return kernel_T @ torch.inverse(kernel @ kernel_T)

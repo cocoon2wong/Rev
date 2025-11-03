@@ -2,7 +2,7 @@
 @Author: Conghao Wong
 @Date: 2024-12-05 15:14:02
 @LastEditors: Conghao Wong
-@LastEditTime: 2025-01-15 15:43:36
+@LastEditTime: 2025-09-28 10:01:17
 @Github: https://cocoon2wong.github.io
 @Copyright 2024 Conghao Wong, All Rights Reserved.
 """
@@ -15,15 +15,31 @@ class ReverberationArgs(EmptyArgs):
     @property
     def Kc(self) -> int:
         """
-        The number of style channels when making predictions.
+        The number of generations when making predictions.
+        It is also the channels of the generating kernel in the proposed
+        reverberation transform.
         """
         return self._arg('Kc', 20, argtype=STATIC,
-                         desc_in_model_summary='Output channels')
+                         other_names=['Kg', 'K_g'],
+                         desc_in_model_summary='Generating channels')
+
+    @property
+    def select_generating_channel(self) -> int:
+        """
+        (Ablation Only) Select one of the generating channel as the direct
+        output of the prediction network.
+        Value range: 0 <= n < K_g.
+        NOTE: This MAY lead to significant performance degradation as only
+        one channel is reserved for prediction. This arg is only used for
+        conducting ablation analyses or discussions.
+        """
+        return self._arg('select_generating_channel', -1, argtype=TEMPORARY)
 
     @property
     def partitions(self) -> int:
         """
         The number of partitions when computing the angle-based feature.
+        It is only used when modeling social interactions.
         """
         return self._arg('partitions', -1, argtype=STATIC,
                          desc_in_model_summary='Number of Angle-based Partitions')
@@ -34,9 +50,9 @@ class ReverberationArgs(EmptyArgs):
         Transform type used to compute trajectory spectrums.
 
         It could be:
-        - `none`: no transformations
-        - `haar`: haar wavelet transform
-        - `db2`: DB2 wavelet transform
+        - `none`: no transformations;
+        - `haar`: haar wavelet transform;
+        - `db2`: DB2 wavelet transform.
         """
         return self._arg('T', 'haar', argtype=STATIC, short_name='T',
                          desc_in_model_summary='Transform type')
@@ -44,16 +60,16 @@ class ReverberationArgs(EmptyArgs):
     @property
     def no_interaction(self) -> int:
         """
-        Whether to forecast trajectories by considering social interactions.
-        It will compute all social-interaction-related components on the set
-        of empty neighbors if this args is set to `1`.
+        (bool) Whether to forecast trajectories by considering social
+        interactions. It will compute all social-interaction-related components
+        on the set of empty neighbors if this args is set to `1`.
         """
         return self._arg('no_interaction', 0, argtype=TEMPORARY)
 
     @property
     def encode_agent_types(self) -> int:
         """
-        Choose whether to encode the type name of each agent.
+        (bool) Choose whether to encode the type name of each agent.
         It is mainly used in multi-type-agent prediction scenes, providing
         a unique type-coding for each type of agents when encoding their
         trajectories.
@@ -61,76 +77,113 @@ class ReverberationArgs(EmptyArgs):
         return self._arg('encode_agent_types', 0, argtype=STATIC)
 
     @property
-    def compute_linear_base(self) -> int:
+    def compute_linear(self) -> int:
         """
-        Whether to learn to forecast the linear base during training.
+        (bool) Choose whether to learn to forecast the linear trajectory during
+        training.
         """
-        return self._arg('compute_linear_base', 1, argtype=STATIC,
-                         desc_in_model_summary='Train with linear base')
+        return self._arg('compute_linear', 1, argtype=STATIC,
+                         other_names=['compute_linear_base'],
+                         desc_in_model_summary=('Training configs (Rev Model)',
+                                                'Train with linear trajectory'))
 
     @property
-    def compute_self_bias(self) -> int:
+    def compute_noninteractive(self) -> int:
         """
-        Whether to learn to forecast the self-bias during training.
+        (bool) Choose whether to learn to forecast the non-interactive
+        trajectory during training.
         """
-        return self._arg('compute_self_bias', 1, argtype=STATIC,
-                         other_names=['learn_self_bias'],
-                         desc_in_model_summary='Learn self-bias')
+        return self._arg('compute_noninteractive', 1, argtype=STATIC,
+                         other_names=['learn_self_bias',
+                                      'compute_self_bias',
+                                      'compute_non'],
+                         desc_in_model_summary=('Training configs (Rev Model)',
+                                                'Learn non-interactive latency during training'))
 
     @property
-    def compute_re_bias(self) -> int:
+    def compute_social(self) -> int:
         """
-        Whether to learn to forecast the re-bias during training.
+        (bool) Choose whether to learn to forecast the social trajectory
+        during training.
         """
-        return self._arg('compute_re_bias', 1, argtype=STATIC,
-                         other_names=['learn_re_bias'],
-                         desc_in_model_summary='Learn re-bias')
+        return self._arg('compute_social', 1, argtype=STATIC,
+                         other_names=['learn_re_bias',
+                                      'compute_re_bias'],
+                         desc_in_model_summary=('Training configs (Rev Model)',
+                                                'Learn social latency during training'))
 
     @property
-    def lite(self) -> int:
+    def disable_G(self) -> int:
         """
-        It controls whether to implement the full reverberation kernel on all
-        historical steps and angle-based partitions or the simplified shared-
-        steps. Simultaneously, the model will compute all angle-based social
-        partitions on a flattened feature rather than all observation frames,
-        which may further reduce the computation consumptions. This arg is
-        typically used to obtain a model variation with faster computation
-        and smaller model size, reducing prediction performance as a compromise.
+        (bool) Choose whether to disable the generating kernels when applying
+        the reverberation transform. An MSN-like generating approach will be
+        used if this arg is set to `1`.
         """
-        return self._arg('lite', 0, argtype=STATIC,
-                         desc_in_model_summary='Lite mode')
+        return self._arg('disable_G', 0, argtype=STATIC,
+                         desc_in_model_summary=('Reverberation Transform',
+                                                'Disable the generating kernel'))
 
     @property
-    def no_linear_base(self) -> int:
+    def disable_R(self) -> int:
         """
-        Ignoring the linear base term when forecasting.
+        (bool) Choose whether to disable the reverberation kernels when
+        applying the reverberation transform. Flatten and fc layers will be
+        used if this arg is set to `1`.
+        """
+        return self._arg('disable_R', 0, argtype=STATIC,
+                         desc_in_model_summary=('Reverberation Transform',
+                                                'Disable the reverberation kernel'))
+
+    @property
+    def test_with_linear(self) -> int:
+        """
+        (bool) Choose whether to ignore the linear base when forecasting.
         It only works when testing.
         """
-        return self._arg('no_linear_base', 0, argtype=TEMPORARY)
+        return self._arg('test_with_linear', 0, argtype=TEMPORARY)
 
     @property
-    def no_self_bias(self) -> int:
+    def test_with_noninteractive(self) -> int:
         """
-        Ignoring the self-bias term when forecasting.
+        (bool) Choose whether to ignore the self-bias when forecasting.
         It only works when testing.
         """
-        return self._arg('no_self_bias', 0, argtype=TEMPORARY)
+        return self._arg('test_with_noninteractive', 0, argtype=TEMPORARY,
+                         other_names=['test_with_non'])
 
     @property
-    def no_re_bias(self) -> int:
+    def test_with_social(self) -> int:
         """
-        Ignoring the resonance-bias term when forecasting.
+        (bool) Choose whether to ignore the resonance-bias when forecasting.
         It only works when testing.
         """
-        return self._arg('no_re_bias', 0, argtype=TEMPORARY)
+        return self._arg('test_with_social', 0, argtype=TEMPORARY,
+                         other_names=['test_with_soc'])
 
     @property
     def draw_kernels(self) -> int:
         """
-        Choose whether to draw and show visualized kernels when testing.
-        It is typically used in the playground mode.
+        Choose whether or in which ways to draw and show visualized kernels
+        when testing. It accepts an int value, including `[0, 1, 2, 3]`:
+        - `0`: Do nothing;
+        - `1`: Only visualize the reverberation kernel;
+        - `2`: Visualize both reverberation and generating kernels;
+        - `3`: Visualize both kernels and their inverse kernels.
+
+        This arg is typically used in the playground mode. 
         """
         return self._arg('draw_kernels', 0, argtype=TEMPORARY)
+
+    @property
+    def select_social_partition(self) -> int:
+        """
+        Choose which social partition will be displayed when visualizing social
+        generating kernels.
+        The indices of social partitions start from `1`, rather than `0`.
+        It only works when the arg `draw_kernels` is set to `2` or `3`.
+        NOTE: This value should be no more than the number of total partitions.
+        """
+        return self._arg('select_social_partition', 1, argtype=TEMPORARY)
 
     def _init_all_args(self):
         super()._init_all_args()

@@ -4,43 +4,25 @@ dataset_original
 dataset_configs
 dataset_processed
 logs
-vislogs
+logs*
 *logs
-*log*
-dataset_temp*
-sdd_debug.plist
-data
+*.log
 
 # vscode
-.vscode
 .vscode*
 
 # temp files
-# .*
 .test
 .DS_Store
 __pycache__
 *.pyc
-
-# test results
-weights
-summary
-
-# others
-annotations.txt
-reference.jpg
-
-data/sdd
-dataset_json
-dataset_json*
-samples
-samples*
-test_log.txt
-
-null
-
 *temp
 temp*
 
+# Other files
 playground.ipynb
-modules
+weights
+
+# Ignore previous models
+resonance
+socialCircle
