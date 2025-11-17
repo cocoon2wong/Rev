@@ -2,16 +2,30 @@
  * @Author: Conghao Wong
  * @Date: 2025-01-15 15:31:57
  * @LastEditors: Conghao Wong
- * @LastEditTime: 2025-11-03 15:16:55
+ * @LastEditTime: 2025-11-17 09:51:49
  * @Github: https://cocoon2wong.github.io
  * Copyright 2025 Conghao Wong, All Rights Reserved.
 -->
 
-# Rev
+# Reverberation
 
 This is the official codes of our paper "Reverberation: Learning the Latencies Before Forecasting Trajectories".
 The full paper will be made avaliable on arXiv soon.
 Our model weights are available at [here](https://github.com/cocoon2wong/Project-Monandaeg/tree/Rev).
+
+## Authors' Note
+
+This work is the third part in our *Echolocation Trilogy*.
+It describes and predicts how long agents' echoes from the past last in the future.
+
+Here are all the repositories involved in our trilogy:
+
+- Part I, **Where do the echoes come from?**: [*SocialCircle*](https://github.com/cocoon2wong/SocialCircle)  (CVPR 2024) and [*SocialCirclePlus*](https://github.com/cocoon2wong/SocialCirclePlus) (Journal, Under Review);
+- Part II, **How echoes interact with each other?**: [*Resonance*](https://github.com/cocoon2wong/Re) (ICCV 2025);
+- Part III, **How long do the echoes last?**: [*Reverberation*](https://github.com/cocoon2wong/Rev) (Journal, Under Review).
+
+Note that these repositories share the same training engine and the weight files are compatible with each other (in the order in which the repositories were released, the later released repositories are compatible with the weights of the previous releases, the [*Reverberation*](https://github.com/cocoon2wong/Rev) repository is recommended as it is compatible with all previous models).
+You can copy only the core model folders, e.g. `SocialCircle`, `Re`, `Rev`, etc., to a repository's root path (i.e., the folder where `qpid` is located), and train and test the models via `main.py`.
 
 ## Getting Started
 
