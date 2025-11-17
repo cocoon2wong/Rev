@@ -2,15 +2,15 @@
  * @Author: Conghao Wong
  * @Date: 2025-01-15 15:31:57
  * @LastEditors: Conghao Wong
- * @LastEditTime: 2025-11-17 09:51:49
+ * @LastEditTime: 2025-11-17 10:17:25
  * @Github: https://cocoon2wong.github.io
  * Copyright 2025 Conghao Wong, All Rights Reserved.
 -->
 
 # Reverberation
 
-This is the official codes of our paper "Reverberation: Learning the Latencies Before Forecasting Trajectories".
-The full paper will be made avaliable on arXiv soon.
+This is the official code of our paper "Reverberation: Learning the Latencies Before Forecasting Trajectories".
+The full paper is now avaliable at [https://arxiv.org/abs/2511.11164](https://arxiv.org/abs/2511.11164).
 Our model weights are available at [here](https://github.com/cocoon2wong/Project-Monandaeg/tree/Rev).
 
 ## Authors' Note
@@ -43,7 +43,7 @@ git submodule update --init --recursive
 
 ## Requirements
 
-The codes are developed with Python 3.10.
+The code is developed with Python 3.10.
 Additional packages used are included in the `requirements.txt` file.
 
 > [!WARNING]
