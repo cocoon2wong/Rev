@@ -2,7 +2,7 @@
  * @Author: Conghao Wong
  * @Date: 2025-01-15 15:31:57
  * @LastEditors: Conghao Wong
- * @LastEditTime: 2025-11-17 10:17:25
+ * @LastEditTime: 2025-12-02 09:33:11
  * @Github: https://cocoon2wong.github.io
  * Copyright 2025 Conghao Wong, All Rights Reserved.
 -->
@@ -217,7 +217,26 @@ You can also load different datasets (video clips) by clicking the `More Setting
 You can also directly click the visualized figure to add a new neighbor to the scene.
 Through this neighbor that wasn't supposed to exist in the prediction scene, you can verify how models handle *social interactions* qualitatively.
 
-### Visualized Social Modifications
+### Visualize Reverberation Curves
+
+You can add the arg `--draw_kernels` to visualize the non-interactive or social reverberation strengths, *i.e.*, our defined non-interactive or social reverberation curves of different prediction samples.
+For example, you can use the following command to open a playground with our pretrained `zara1` weights loaded (supposed to be located at `./weights/revzara1`), and visualize reverberation curves by clicking the `Run` button:
+
+```bash
+python playground/main.py --load ./weights/revzara1 --draw_kernels
+```
+
+Note that the arg `--draw_kernels` also accepts an integer arg:
+
+- `--draw_kernels 0`: Do nothing;
+- `--draw_kernels 1` (equals to the non-arged `--draw_kernels`): Visualize only (original) reverberation curves (computed from reverberation kernel $\mathbf{R}$);
+- `--draw_kernels 2`: Visualize both original reverberation curves ($\mathbf{R}$) and their altered curves ($\mathbf{G}$), both non-interactive and social ones.
+
+You can check different agents' reverberation curves by clicking the `Random` button to randomly select a prediction sample, then click `Run` to start predict and visualize reverberation curves:
+
+![ReverberationCurves](figs/rev_curve.png)
+
+### Visualize Social Modifications
 
 You can use the following command to visualize how a manual neighbor modifies the ego-agent's predicted trajectories, especially in the form of our defined *social modification*:
 
