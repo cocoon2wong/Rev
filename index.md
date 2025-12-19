@@ -8,7 +8,7 @@ cover-img: /subassets/img/head.jpg
  * @Author: Conghao Wong
  * @Date: 2024-12-27 11:05:08
  * @LastEditors: Conghao Wong
- * @LastEditTime: 2025-11-17 10:49:38
+ * @LastEditTime: 2025-12-19 11:11:55
  * @Github: https://cocoon2wong.github.io
  * Copyright 2024 Conghao Wong, All Rights Reserved.
 -->
@@ -30,32 +30,35 @@ Click the buttons below for more information.
 
 ## The Echolocation Trilogy
 
+{% raw %}
+<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/to-the-wilder-piano-version/1818147007?i=1818147359"></iframe>
+{% endraw %}
+
 The **Echolocation Trilogy** is our ongoing attempt to understand trajectory forecasting through a simple but profound idea:
 
 > Every future is shaped by echoes of the past, including how they arise, how they collide, and finally how long they endure.
 
 Across three works, we explore this idea from complementary philosophical and computational angles:
 
-<details open>
+<details open markdown="1">
 <summary><strong>Part I — Where do the echoes come from?</strong></summary>
 
 [*SocialCircle*](https://cocoon2wong.github.io/SocialCircle) (CVPR 2024) and [*SocialCirclePlus*](https://cocoon2wong.github.io/SocialCirclePlus) (Journal, Under Review) examine the origins of these echoes: how each agent perceives itself, its surroundings, and the latent intentions embedded in its own motion history.
 Here, an echo is the trace of one's presence.
 </details>
 
-<details open>
+<details open markdown="1">
 <summary><strong>Part II — How do echoes interact with each other?</strong></summary>
 
 [*Resonance*](https://cocoon2wong.github.io/Re) (ICCV 2025) studies what happens when these echoes coexist.
 Rather than treating agents as isolated predictors, we model their futures as **co-vibrations**: intertwined ripples of influence, alignment, and negotiation within shared space.
 </details>
 
-<details open>
+<details open markdown="1">
 <summary><strong>Part III — How long do the echoes last?</strong></summary>
 
 [*Reverberation*](https://cocoon2wong.github.io/Rev) (Journal, Under Review) turns to temporality itself: how long the past should be allowed to persist, how memory decays, and when an old echo continues to matter for shaping what comes next.
 </details>
-
 
 Together, these works form a unified, echo-inspired view of trajectory prediction.
 All repositories share the same training engine, and the model weights remain compatible in release order.

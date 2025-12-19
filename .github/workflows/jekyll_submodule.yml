@@ -43,14 +43,7 @@ jobs:
 
       - name: Clone the newest templete and copy files
         run: |
-          git clone https://github.com/cocoon2wong/Project-Zero-Divided.git
-          cd Project-Zero-Divided
-          git checkout Unpredictable
-          cd ..
-          cp -r ./Project-Zero-Divided/_data ./
-          cp -r ./Project-Zero-Divided/_includes ./
-          cp -r ./Project-Zero-Divided/_layouts ./
-          cp -r ./Project-Zero-Divided/assets ./
+          bash preprocess.sh
 
       - name: Fetch the new readme
         run: |
