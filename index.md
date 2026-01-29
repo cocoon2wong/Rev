@@ -8,7 +8,7 @@ cover-img: /subassets/img/head.jpg
  * @Author: Conghao Wong
  * @Date: 2024-12-27 11:05:08
  * @LastEditors: Conghao Wong
- * @LastEditTime: 2025-12-19 11:11:55
+ * @LastEditTime: 2026-01-29 19:03:56
  * @Github: https://cocoon2wong.github.io
  * Copyright 2024 Conghao Wong, All Rights Reserved.
 -->
@@ -21,10 +21,10 @@ Click the buttons below for more information.
 
 <div style="text-align: center;">
     <!-- {% if site.arxiv-id %} -->
-    <a class="btn btn-colorful btn-lg" href="./paper">📖 Paper</a>
+    <a class="btn btn-lg btn-normal" href="./paper">📖 Paper</a>
     <!-- {% endif %} -->
-    <a class="btn btn-colorful btn-lg" href="{{ site.github.repository_url }}">🛠️ Code</a>
-    <a class="btn btn-colorful btn-lg" href="./guidelines">💡 Code Guidelines</a>
+    <a class="btn btn-lg btn-normal" href="{{ site.github.repository_url }}">🛠️ Code</a>
+    <a class="btn btn-lg btn-normal" href="./guidelines">💡 Code Guidelines</a>
     <br><br>
 </div>
 
