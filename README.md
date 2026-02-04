@@ -2,7 +2,7 @@
  * @Author: Conghao Wong
  * @Date: 2025-01-15 15:31:57
  * @LastEditors: Conghao Wong
- * @LastEditTime: 2025-12-02 09:33:11
+ * @LastEditTime: 2026-02-04 09:53:22
  * @Github: https://cocoon2wong.github.io
  * Copyright 2025 Conghao Wong, All Rights Reserved.
 -->
@@ -10,7 +10,7 @@
 # Reverberation
 
 This is the official code of our paper "Reverberation: Learning the Latencies Before Forecasting Trajectories".
-The full paper is now avaliable at [https://arxiv.org/abs/2511.11164](https://arxiv.org/abs/2511.11164).
+The full paper is now available at [https://arxiv.org/abs/2511.11164](https://arxiv.org/abs/2511.11164).
 Our model weights are available at [here](https://github.com/cocoon2wong/Project-Monandaeg/tree/Rev).
 
 ## Authors' Note
@@ -35,7 +35,7 @@ You can clone [this repository](https://github.com/cocoon2wong/Rev) by the follo
 git clone https://github.com/cocoon2wong/Rev.git
 ```
 
-Then, run the following command to initialize all submodules:
+Then, run the following command to initialize all submodules (Submodules include our unified training engine (`qpid`) and dataset processing utilities):
 
 ```bash
 git submodule update --init --recursive
@@ -58,7 +58,7 @@ pip install -r requirements.txt
 
 ## Preparing Datasets
 
-### ETH-UCY, SDD, NBA, nuScenes
+### ETH-UCY, SDD, nuScenes, Human3.6M
 
 > [!WARNING]
 > If you want to validate `Rev` models on these datasets, make sure you are getting this repository via `git clone` and that all *git submodules* have been properly initialized via `git submodule update --init --recursive`.
@@ -135,7 +135,7 @@ You can start evaluating these weights by
 python main.py --load SOME_MODEL_WEIGHTS
 ```
 
-Here, `SOME_MODEL_WEIGHTS` is the path of the weights folder, for example, `./weights/rezara1`.
+Here, `SOME_MODEL_WEIGHTS` is the path of the weights folder, for example, `./weights/revzara1`.
 
 ## Training
 
