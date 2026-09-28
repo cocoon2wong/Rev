@@ -8,6 +8,7 @@ showTableOfContents: false
 ---
 
 import { withBase } from "@/utils/url";
+import LiquidGlassImageContainer from "@/components/LiquidGlassImageContainer.astro";
 import Pill from "@/components/Pill.astro";
 
 ## Information
@@ -27,17 +28,30 @@ Click the buttons below for more information.
 
 ## Abstract
 
-<img src={withBase("/assets/figs/intro.png")} alt="Motivation Illustration" style="width: 60%" />
-
-*Fig. Motivation Illustration: Inspired by the acoustic reverberation that describes how the echo sound decays in the space after reflecting, we model how past trajectory-changing events (like intention changes or interactions) change trajectories as well as their latencies as "echoes from the past".*
-
 Bridging the past to the future, connecting agents both spatially and temporally, lies at the core of the trajectory prediction task.
-Despite great efforts, it remains challenging to explicitly learn and predict *latencies*, the temporal delays with which agents respond to different trajectory-changing events and adjust their future paths, whether on their own or interactively.
-Different agents may exhibit distinct latency preferences for noticing, processing, and reacting to any specific trajectory-changing event.
-The lack of consideration of such latencies may undermine the causal continuity of the forecasting system and also lead to implausible or unintended trajectories.
-Inspired by the reverberation curves in acoustics, we propose a new reverberation transform and the corresponding *Reverberation* (short for *Rev*) trajectory prediction model, which simulates and predicts different latency preferences of each agent as well as their stochasticity by using two explicit and learnable reverberation kernels, allowing for the controllable trajectory prediction based on these forecasted latencies.
-Experiments on multiple datasets, whether pedestrians or vehicles, demonstrate that *Rev* achieves competitive accuracy while revealing interpretable latency dynamics across agents and scenarios.
-Qualitative analyses further verify the properties of the proposed reverberation transform, highlighting its potential as a general latency modeling approach.
+Despite great efforts, it remains challenging to explicitly learn and predict *latencies*, i.e., response intervals or temporal delays with which agents respond to various trajectory-changing events and adjust their future paths, whether on their own or interactively.
+Different agents may exhibit distinct latency preferences for noticing, processing, and reacting to a specific trajectory-changing event.
+The lack of consideration of such latencies may undermine the temporal continuity of forecasting systems, leading to implausible or unintended trajectories.
+Inspired by reverberation in acoustics, we propose a new reverberation transform and the corresponding *Reverberation* (*Rev* for short) trajectory prediction model, which predicts both individual latency preferences and their stochastic variations accordingly, by using two explicit and learnable reverberation kernels, enabling latency-conditioned and controllable trajectory prediction under both non-interactive and social latencies.
+Experiments on multiple datasets, whether of pedestrians or vehicles, demonstrate that *Rev* achieves competitive accuracy while revealing interpretable latency dynamics across agents and scenarios.
+Qualitative analyses further verify the properties of the reverberation transform, highlighting its potential as a general latency modeling approach.
+
+<LiquidGlassImageContainer
+  src="/assets/figs/intro.png"
+  alt="Motivation Illustration"
+  maxHeight="200px"
+>
+  Fig. Motivation Illustration: Inspired by the acoustic reverberation that describes how the echo sound decays in the space after reflecting, we model how past trajectory-changing events (like intention changes or interactions) change trajectories as well as their latencies as "echoes from the past"
+</LiquidGlassImageContainer>
+
+## Contributions
+
+In summary, our main contributions are as follows:
+
+- We propose the reverberation transform to explicitly model agents' latencies in handling trajectory-changing events, consisting of two trainable reverberation kernels: the reverberation kernel $\mathbf{R}$ that models event-level latency responses and the generating kernel $\mathbf{G}$ that simulates variations and alternatives of such latencies.
+- We design the *Reverberation* (*Rev* for short) trajectory prediction model, which builds upon the proposed reverberation transform, to simultaneously learn non-interactive and social latencies, thereby enabling latency-aware and interpretable trajectory prediction.
+- We validate the proposed *Rev* both quantitatively and qualitatively on multiple trajectory datasets, and extensively analyze the theoretical properties of the proposed reverberation transform. Extensive ablations and discussions further verify both the quantitative improvements and the interpretability of the learned latency dynamics.
+
 
 ## The Echolocation Trilogy
 
