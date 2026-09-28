@@ -1,17 +1,14 @@
 ---
-layout: page
-title: Reverberation
+layout: "@/layouts/BaseLayout.astro"
+title: "Reverberation"
 subtitle: "Reverberation: Learning the Latencies Before Forecasting Trajectories"
-cover-img: /subassets/img/head.jpg
+coverImg: "/assets/img/head.jpg"
+showBreadcrumbs: false
+showTableOfContents: false
 ---
-<!--
- * @Author: Conghao Wong
- * @Date: 2024-12-27 11:05:08
- * @LastEditors: Conghao Wong
- * @LastEditTime: 2026-01-29 19:03:56
- * @Github: https://cocoon2wong.github.io
- * Copyright 2024 Conghao Wong, All Rights Reserved.
--->
+
+import { withBase } from "@/utils/url";
+import Pill from "@/components/Pill.astro";
 
 ## Information
 
@@ -19,42 +16,39 @@ This is the homepage of our paper "Reverberation: Learning the Latencies Before 
 The paper is now available on arXiv.
 Click the buttons below for more information.
 
-<div style="text-align: center;">
-    <!-- {% if site.arxiv-id %} -->
-    <a class="btn btn-lg btn-normal" href="./paper">📖 Paper</a>
-    <!-- {% endif %} -->
-    <a class="btn btn-lg btn-normal" href="{{ site.github.repository_url }}">🛠️ Code</a>
-    <a class="btn btn-lg btn-normal" href="./guidelines">💡 Code Guidelines</a>
-    <br><br>
-</div>
+<Pill
+  hoverable
+  items={[
+    {label: "📖 Paper", href: withBase("/paper")},
+    {label: "🛠️ Code", href: "https://github.com/cocoon2wong/Rev"},
+    {label: "💡 Code Guidelines", href: withBase("/guidelines")}
+  ]}
+/>
+
 
 ## The Echolocation Trilogy
 
-{% raw %}
-<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/to-the-wilder-piano-version/1818147007?i=1818147359"></iframe>
-{% endraw %}
+<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style={{ width: "100%", overflow: "hidden", background: "transparent" }} sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/to-the-wilder-piano-version/1818147007?i=1818147359"></iframe>
 
-The **Echolocation Trilogy** is our ongoing attempt to understand trajectory forecasting through a simple but profound idea:
-
-> Every future is shaped by echoes of the past, including how they arise, how they collide, and finally how long they endure.
+The **Echolocation Trilogy** is our ongoing attempt to understand trajectory forecasting through a simple but profound idea that *every future is shaped by echoes of the past, including how they arise, how they collide, and finally how long they endure*.
 
 Across three works, we explore this idea from complementary philosophical and computational angles:
 
-<details open markdown="1">
+<details open>
 <summary><strong>Part I — Where do the echoes come from?</strong></summary>
 
 [*SocialCircle*](https://cocoon2wong.github.io/SocialCircle) (CVPR 2024) and [*SocialCirclePlus*](https://cocoon2wong.github.io/SocialCirclePlus) (Journal, Under Review) examine the origins of these echoes: how each agent perceives itself, its surroundings, and the latent intentions embedded in its own motion history.
 Here, an echo is the trace of one's presence.
 </details>
 
-<details open markdown="1">
+<details open>
 <summary><strong>Part II — How do echoes interact with each other?</strong></summary>
 
 [*Resonance*](https://cocoon2wong.github.io/Re) (ICCV 2025) studies what happens when these echoes coexist.
 Rather than treating agents as isolated predictors, we model their futures as **co-vibrations**: intertwined ripples of influence, alignment, and negotiation within shared space.
 </details>
 
-<details open markdown="1">
+<details open>
 <summary><strong>Part III — How long do the echoes last?</strong></summary>
 
 [*Reverberation*](https://cocoon2wong.github.io/Rev) (Journal, Under Review) turns to temporality itself: how long the past should be allowed to persist, how memory decays, and when an old echo continues to matter for shaping what comes next.
@@ -67,7 +61,7 @@ To run any model, simply place the core model folders (`SocialCircle`, `Re`, `Re
 
 ## Abstract
 
-![Motivation Illustration](figs/intro.png)
+<img src={withBase("/assets/figs/intro.png")} alt="Motivation Illustration" style="width: 60%" />
 
 *Fig. Motivation Illustration: Inspired by the acoustic reverberation that describes how the echo sound decays in the space after reflecting, we model how past trajectory-changing events (like intention changes or interactions) change trajectories as well as their latencies as "echoes from the past".*
 
@@ -94,6 +88,5 @@ If you find this work useful, it would be grateful to cite our paper!
 
 ## Contact us
 
-Conghao Wong ([@cocoon2wong](https://github.com/cocoon2wong)): conghaowong@icloud.com  
-Ziqian Zou ([@LivepoolQ](https://github.com/LivepoolQ)): ziqianzoulive@icloud.com  
-Beihao Xia ([@NorthOcean](https://github.com/NorthOcean)): xbh_hust@hust.edu.cn
+Conghao Wong ([@cocoon2wong](https://github.com/cocoon2wong))  
+Ziqian Zou ([@LivepoolQ](https://github.com/LivepoolQ))

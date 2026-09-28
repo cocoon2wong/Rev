@@ -2,11 +2,10 @@
 @Author: Conghao Wong
 @Date: 2024-12-04 09:44:45
 @LastEditors: Conghao Wong
-@LastEditTime: 2024-12-27 11:09:46
+@LastEditTime: 2026-09-28 11:14:24
 @Github: https://cocoon2wong.github.io
-@Copyright 2024 Conghao Wong, All Rights Reserved.
+@Copyright 2026 Conghao Wong, All Rights Reserved.
 """
-
 import requests
 import shutil
 
@@ -14,8 +13,8 @@ GITHUB_USERNAME = 'cocoon2wong'
 GITHUB_REPONAME = 'Rev'
 GITHUB_READMEFILE = 'README.md'
 
-SOURCE_FILE = './guidelines.md'
-TARGET_FILE = './README.md.downloaded'
+SOURCE_FILE = '__pages/guidelines.mdx'
+TARGET_FILE = '__pages/README.md.downloaded'
 
 START_LINE = '## Getting Started'
 
