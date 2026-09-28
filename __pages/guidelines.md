@@ -2,7 +2,7 @@
 layout: "@/layouts/BaseLayout.astro"
 title: "Codes Guidelines"
 subtitle: 'Official implementation of the paper "Reverberation: Learning the Latencies Before Forecasting Trajectories"'
-coverImg: "/assets/img/head.jpg"
+# coverImg: "/assets/img/head.jpg"
 showBreadcrumbs: true
 showTableOfContents: true
 ---

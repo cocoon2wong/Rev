@@ -68,7 +68,7 @@ export const siteConfig: SiteConfig = {
   title: "Project Unpredictable: Reverberation",
   subtitle: "Reverberation: Learning the Latencies Before Forecasting Trajectories",
   description: "Official website for Reverberation: Learning the Latencies Before Forecasting Trajectories",
-  author: "Copyright ©️ Team Unpredictable",
+  author: "Conghao Wong",
   language: "en",
   url: "https://cocoon2wong.github.io",
   repository: "cocoon2wong/Rev",
@@ -103,11 +103,25 @@ export const siteConfig: SiteConfig = {
   ],
   customCss: [],
   hideDetailedFooter: false,
-  footerRelatedLinks: [],
+  footerRelatedLinks: [
+    {
+      title: "Encore",
+      url: "https://cocoon2wong.github.io/Encore",
+    },
+    {
+      title: "Resonance",
+      url: "https://cocoon2wong.github.io/Re",
+    },
+    {
+      title: "SocialCircle",
+      url: "https://cocoon2wong.github.io/SocialCircle",
+    },
+  ],
   fullNames: {
     Home: "Reverberation",
     Paper: "Full Paper",
     Guide: "Codes Guidelines",
+    Unpredictable: "Project Unpredictable",
   },
   colors: {
     pageBgColor: "#FFFFFF",
@@ -121,10 +135,10 @@ export const siteConfig: SiteConfig = {
     linkColor: "#e76e3c",
     headerBgColor: "#FFFFFF",
     headerBgColorDark: "#000000",
-    navbarBgColor: "#291b1aa0",
+    navbarBgColor: "#291b1a20",
     navbarBgColorDark: "#14141460",
     navbarBorderColor: "#DDDDDD",
-    navbarTextColor: "#FFFFFF",
+    navbarTextColor: "#000000",
     navbarFloatActiveBgColor: "rgba(70, 70, 70, 0.599)",
     navbarIndicatorGrayLight: "#00000015",
     navbarIndicatorGrayDark: "#ffffff22",
